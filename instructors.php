@@ -1,21 +1,19 @@
 <!doctype html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Instructors</title>
 <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.css">
-  <link rel="stylesheet" href="css/bootstrap.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 <style>
 	/* Remove the navbar's default margin-bottom and rounded borders */ 
 	.navbar {
 		margin-bottom: 0;
 		border-radius: 0;
 	}
-	body{ 
-      background-image: url("images/GTR-2019.jpg");  
-      background-size:cover ;
-    }
+	
 	/* Add a gray background color and some padding to the footer */
 	footer {
 		background-color: #262626;
@@ -70,33 +68,9 @@
 		</ul>
 	</div>
 </div>
-
-<form action="" method="post">
-    <table width="100%" border="0" style="border:none;">
-      <tr>
-        <td><label>Name &nbsp;</label><input type="text" name="by_name" /></td>
-		<td><label>Gender &nbsp;</label><br>
-		<input type="radio" value="Male" name="by_gen" required>Male <br> 
-		<input type="radio" value="Female" name="by_gen" required>Female</td>
-		<td><label>Drive Type &nbsp;</label><br>
-		<input type="radio" value="Automatic" name="by_dt" required>Automatic <br>
-		<input type="radio" value="Manual" name="by_dt" required>Manual</td></td>
-        <td><input class="button" type="submit" name="submit" value="Search" /></td>
-      </tr>
-    </table>
-	</form>
-<?php
- $sql = "Select * from instructors";
-if(isset($_POST['submit'])) {
-
-    $result = $sql->search_inst($_POST);
-
-}
-
-?>
 </nav>
-
-
+  // *-----------------------------------------------------------------*/
+<div class="container" style="margin: 200px">
 <?php
 	session_start();
 // Create connection
@@ -108,77 +82,46 @@ if(isset($_POST['submit'])) {
 	if($result){
     while ($row = $result->fetch_assoc()){
 ?>
-
-
-<div class="container" style="margin: 200px">
 	<div class="row" style="padding-bottom: 20px">
-		<div class="col-sm-6" style="left:130px">
-            <div class="card" style="width:400px">
+		<div class="col-sm-6" style="left:300px">
+        <div class="card" style="width:400px">
             <?php
                 if ($row['gen']=="Male"){
             ?>
-				<img class="card-img-bottom" src="images/male.jpg" alt="Card image" style="">
-				<div class="card-body">
-                    <h4 class="card-title"><?php echo $row['nam'];?></h4>
-                    <p class="card-text"><?php echo $row['gen'];?></p>
-                    <p class="card-text">Age: <?php echo $row['age'];?></p>
-                    <p class="card-text">Experience <?php echo $row['ex'];?> Years</p>
-                    <p class="card-text">Drive Type: <?php echo $row['dt'];?></p>
-                    <p class="card-text">Phone Number: <?php echo $row['num'];?></p>
-                </div>
+				<img class="card-img-bottom" src="images/male.jpg" alt="Card image" style="width:80%">
             <?php
                 }
-                else{		
+                else{
 			?>
-				<img class="card-img-bottom" src="images/female.jpg" alt="Card image" style="
-				">	
-				<div class="card-body">
-                    <h4 class="card-title"><?php echo $row['nam'];?></h4>
-                    <p class="card-text"><?php echo $row['gen'];?></p>
-                    <p class="card-text">Age: <?php echo $row['age'];?></p>
-                    <p class="card-text">Experience <?php echo $row['ex'];?> Years</p>
-                    <p class="card-text">Drive Type: <?php echo $row['dt'];?></p>
-										<p class="card-text">Phone Number: <?php echo $row['num'];?></p>
-										<button type="submit" class="signupbtn" onclick="newAccount()">Update</button>
-                </div>
+				<img class="card-img-bottom" src="images/female.jpg" alt="Card image" style="width:80%">	
+				<?php
+								}
+				?>
+				 
+					<div class="card-body">
+											<h4 class="card-title"><?php echo $row['nam'];?></h4>
+											<p class="card-text"><?php echo $row['gen'];?></p>
+											<p class="card-text">Age: <?php echo $row['age'];?></p>
+											<p class="card-text">Experience <?php echo $row['ex'];?> Years.</p>
+											<p class="card-text">Drive Type: <?php echo $row['dt'];?></p>
+											<p class="card-text">Phone Number:  <?php echo $row['num'];?></p>
+											<button type="submit" class="signupbtn" onclick="newAccount()">Update</button>
+					</div>
+			 
 			</div>
 		</div>
 	</div>
-		
- 
-
+</div>
 				 
 
 <?php
 			}
-	    }
-	}
+	    
+    }
 $cn->close();
-
-function search_inst($POST) {
-
-	$by_name = $POST['by_name'];
-	$by_gen = $POST['by_gen'];
-	$by_dt = $POST['by_dt'];
-
-	$search_query = "SELECT * FROM instructors WHERE";
-	if($by_name !="") {
-	  $search_query .= " name='$by_name'";
-	}
-	if($by_gen !="") {
-	  $search_query .= " gen='$by_gen'";
-	}
-	if($by_dt !="") {
-	  $search_query .= " dt='$by_dt'";
-	}
 	
-	$search_query;
-	$result = mysql_query($search_query);
-
-	return $result;
-}	
 ?>
- 
+
 <footer class="container-fluid text-center">
   <div>
     <h1>ODHP</h1>
@@ -194,8 +137,7 @@ function search_inst($POST) {
       window.location.href = "supdate.html";
       }
   </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="script/myScript.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </body>
 </html>
